@@ -1,4 +1,5 @@
 <launch>
+  <arg name="robot_namespace"         default=""/>
 
   <!-- OMPL Plugin for MoveIt! -->
   <arg name="planning_plugin" value="ompl_interface/OMPLPlanner" />

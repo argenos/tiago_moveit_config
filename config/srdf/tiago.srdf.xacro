@@ -8,13 +8,24 @@
     <xacro:arg name="arm" default="true"/>
     <xacro:arg name="end_effector" default="pal-hey5"/>
     <xacro:arg name="ft_sensor" default="schunk-ft"/>
+    <xacro:arg name="multiple" default="false"/>
+    <xacro:arg name="namespace" default=""/>
     <xacro:property name="base_type" value="$(arg base_type)"/>
     <xacro:property name="has_arm" value="$(arg arm)"/>
     <xacro:property name="end_effector" value="$(arg end_effector)"/>
     <xacro:property name="ft_sensor" value="$(arg ft_sensor)"/>
     <xacro:property name="has_ft_sensor" value="${ft_sensor not in ['false', False]}"/>
     <xacro:property name="robot" value="tiago"/>
+    <xacro:property name="is_multiple" value="$(arg multiple)" />
+    <xacro:property name="nsp" value="$(arg namespace)" />
+
+  <xacro:if value="$(arg multiple)">
+<virtual_joint name="odom_to_base" child_link="base_footprint" parent_frame="$(arg namespace)/odom" type="planar"/>
+  </xacro:if>
+  <xacro:unless value="$(arg multiple)">
 <virtual_joint name="odom_to_base" child_link="base_footprint" parent_frame="odom" type="planar"/>
+  </xacro:unless>
+
 <xacro:if value="${base_type == 'omni_base'}">
     <xacro:property name="robot" value="tiago_omni"/>
 </xacro:if>
